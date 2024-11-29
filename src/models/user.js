@@ -44,8 +44,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       validate: {
-        validator: (v) => isValidPassword(v),
-        message: (props) => `${props.value} is not a valid Password!`,
+        validator: (v) => validator.isStrongPassword(v),
+        message: (props) => `${props.value} is not a valid email!`,
       },
     },
     age: {
@@ -65,11 +65,11 @@ const userSchema = new mongoose.Schema(
     },
     skills: {
       type: [String],
-      validate: {
-        validator: (v) => v.length >= 3 && v.length <= 10,
-        message: (props) =>
-          `${props?.value?.length} records found, Please send Minimum 3 and Maximum 10 records!`,
-      },
+      // validate: {
+      //   validator: (v) => v.length >= 3 && v.length <= 10,
+      //   message: (props) =>
+      //     `${props?.value?.length} records found, Please send Minimum 3 and Maximum 10 records!`,
+      // },
     },
     photoUrl: {
       type: String,
