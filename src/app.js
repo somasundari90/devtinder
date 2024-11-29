@@ -8,6 +8,24 @@ const app = express();
 
 app.use(express.json());
 
+app.post("/login", async (req, res) => {
+  const { emailId, password } = req.body;
+  try {
+    const user = await User.findOne({ emailId });
+    if (!user) {
+      throw new Error("Invalid Credentials");
+    }
+    const isPasswordValid = await bcrypt.compare(password, user?.password);
+    if (isPasswordValid) {
+      res.send("User login Successful");
+    } else {
+      throw new Error("Invalid Credentials");
+    }
+  } catch (err) {
+    res.status(400).send(`Error Saving User: ${err.message}`);
+  }
+});
+
 app.post("/signup", async (req, res) => {
   const { firstName, lastName, emailId, password } = req.body;
   try {
