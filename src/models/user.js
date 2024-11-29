@@ -5,6 +5,8 @@ const {
   isValidEmail,
   isValidPassword,
 } = require("../utils/utils");
+const validator = require("validator");
+const { default: isURL } = require("validator/lib/isURL");
 
 const userSchema = new mongoose.Schema(
   {
@@ -34,7 +36,7 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
       validate: {
-        validator: (v) => isValidEmail(v),
+        validator: (v) => validator.isEmail(v),
         message: (props) => `${props.value} is not a valid email!`,
       },
     },
@@ -73,6 +75,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default:
         "https://png.pngtree.com/element_our/png/20181206/female-avatar-vector-icon-png_262142.jpg",
+      validate: {
+        validator: (v) => validator.isURL(v),
+        message: (props) => `${props.value} is not a valid URL!`,
+      },
     },
     about: {
       type: String,
