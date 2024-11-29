@@ -63,6 +63,20 @@ const userSchema = new mongoose.Schema(
     },
     skills: {
       type: [String],
+      validate: {
+        validator: (v) => v.length >= 3 && v.length <= 10,
+        message: (props) =>
+          `${props?.value?.length} records found, Please send Minimum 3 and Maximum 10 records!`,
+      },
+    },
+    photoUrl: {
+      type: String,
+      default:
+        "https://png.pngtree.com/element_our/png/20181206/female-avatar-vector-icon-png_262142.jpg",
+    },
+    about: {
+      type: String,
+      maxLength: 255,
     },
   },
   {
