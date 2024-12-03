@@ -1,5 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+
 const connectDB = require("./config/database");
 const User = require("./models/user");
 const { singupDataValidator } = require("./utils/validation");
@@ -7,6 +10,7 @@ const { singupDataValidator } = require("./utils/validation");
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.post("/login", async (req, res) => {
   const { emailId, password } = req.body;
@@ -17,12 +21,37 @@ app.post("/login", async (req, res) => {
     }
     const isPasswordValid = await bcrypt.compare(password, user?.password);
     if (isPasswordValid) {
+      //Create token
+      const token = await jwt.sign({ _id: user._id }, "SomaChiruAnand1810!@$");
+
+      //Set Cookie and send in response
+      res.cookie("token", token);
       res.send("User login Successful");
     } else {
       throw new Error("Invalid Credentials");
     }
   } catch (err) {
-    res.status(400).send(`Error Saving User: ${err.message}`);
+    res.status(400).send(`Error: ${err.message}`);
+  }
+});
+
+app.get("/profile", async (req, res) => {
+  try {
+    // Read the token
+    const token = req.cookies?.token;
+    if (!token) {
+      throw new Error("Invalid Token");
+    }
+
+    //Decode Token to get the secret hidden in it
+    const decodedMessage = jwt.verify(token, "SomaChiruAnand1810!@$");
+    const user = await User.findById(decodedMessage?._id);
+    if (!user) {
+      throw new Error("Invalid User login");
+    }
+    res.send(user);
+  } catch (err) {
+    res.status(400).send(`Error in getting User Details: ${err.message}`);
   }
 });
 
@@ -50,7 +79,7 @@ app.post("/signup", async (req, res) => {
 
 app.get("/user", async (req, res) => {
   try {
-    /* this code block returns array of matched used
+    /* this code block returns array of matched user
     const users = await User.find({ emailId: req.body.emailId });
     if (users.length === 0) {
       res.status(404).send("User not found");
