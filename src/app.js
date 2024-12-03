@@ -38,14 +38,16 @@ app.post("/login", async (req, res) => {
 app.get("/profile", async (req, res) => {
   try {
     // Read the token
-    const token = req.cookies?.token;
+    const cookies = req.cookies;
+    const { token } = cookies;
     if (!token) {
       throw new Error("Invalid Token");
     }
 
     //Decode Token to get the secret hidden in it
     const decodedMessage = jwt.verify(token, "SomaChiruAnand1810!@$");
-    const user = await User.findById(decodedMessage?._id);
+    const { _id } = decodedMessage;
+    const user = await User.findById(_id);
     if (!user) {
       throw new Error("Invalid User login");
     }
