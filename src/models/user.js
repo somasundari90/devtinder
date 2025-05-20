@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const {
   isAlphabetWithSpaceOnly,
@@ -89,4 +91,22 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.methods.getJWT = async function () {
+  //Always use the old function syntax
+  const user = this;
+  //Create token
+  const token = await jwt.sign({ _id: user._id }, "SomaChiruAnand1810!@$", {
+    expiresIn: "7d",
+  });
+  return token;
+};
+
+userSchema.methods.validatePassword = async function (password) {
+  //Always use the old function syntax
+  const user = this;
+  //validate password
+  const isPasswordValid = await bcrypt.compare(password, this?.password);
+  return isPasswordValid;
+};
 module.exports = mongoose.model("User", userSchema);
