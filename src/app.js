@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const connectDB = require("./config/database");
 const User = require("./models/user");
 const { singupDataValidator } = require("./utils/validation");
+const { userAuth } = require("./middlewares/auth");
 
 const app = express();
 
@@ -22,10 +23,12 @@ app.post("/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user?.password);
     if (isPasswordValid) {
       //Create token
-      const token = await jwt.sign({ _id: user._id }, "SomaChiruAnand1810!@$");
+      const token = await jwt.sign({ _id: user._id }, "SomaChiruAnand1810!@$", {
+        expiresIn: "7d",
+      });
 
       //Set Cookie and send in response
-      res.cookie("token", token);
+      res.cookie("token", token, { expires: new Date(Date.now() + 900000) });
       res.send("User login Successful");
     } else {
       throw new Error("Invalid Credentials");
@@ -35,25 +38,22 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", userAuth, async (req, res) => {
   try {
-    // Read the token
-    const cookies = req.cookies;
-    const { token } = cookies;
-    if (!token) {
-      throw new Error("Invalid Token");
-    }
+    const user = req.user;
 
-    //Decode Token to get the secret hidden in it
-    const decodedMessage = jwt.verify(token, "SomaChiruAnand1810!@$");
-    const { _id } = decodedMessage;
-    const user = await User.findById(_id);
-    if (!user) {
-      throw new Error("Invalid User login");
-    }
     res.send(user);
   } catch (err) {
     res.status(400).send(`Error in getting User Details: ${err.message}`);
+  }
+});
+
+app.post("/sendConnectionRequest", userAuth, async (req, res) => {
+  try {
+    const user = req.user;
+    res.send(`${user.firstName} sent Connection request`);
+  } catch (err) {
+    res.status(400).send(`Error in sending request: ${err.message}`);
   }
 });
 
