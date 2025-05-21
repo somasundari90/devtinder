@@ -1,4 +1,5 @@
 const validator = require("validator");
+const bcrypt = require("bcrypt");
 
 const singupDataValidator = (req) => {
   const { firstName, lastName, emailId, password } = req.body;
@@ -11,4 +12,12 @@ const singupDataValidator = (req) => {
   }
 };
 
-module.exports = { singupDataValidator };
+const resetPasswordValidator = async (newPassword, oldPassword) => {
+  const isSamePassword = await bcrypt.compare(newPassword, oldPassword);
+  if (isSamePassword) {
+    throw new Error("New password matches existing password");
+  } else if (!validator.isStrongPassword(newPassword)) {
+    throw new Error("Please enter a strong password");
+  }
+};
+module.exports = { singupDataValidator, resetPasswordValidator };
