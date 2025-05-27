@@ -4,6 +4,7 @@ const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require("../models/user");
 
+// API to send interested or ignored
 requestRouter.post(
   "/request/send/:status/:toUserId",
   userAuth,
@@ -53,6 +54,40 @@ requestRouter.post(
             : `${req.user.firstName}  ${status}  ${toUser.firstName} profile`,
         data,
       });
+    } catch (err) {
+      res.status(400).send(`Error in sending request: ${err.message}`);
+    }
+  }
+);
+
+// API to review accepted or rejected
+requestRouter.post(
+  "/request/review/:status/:requestId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const loggedInUser = req.user;
+      const { status, requestId } = req.params;
+
+      const allowedStatus = ["accepted", "rejected"];
+      if (!allowedStatus.includes(status)) {
+        throw new Error(`Status ${status} not supported`);
+      }
+
+      const connectionRequest = await ConnectionRequest.findOne({
+        _id: requestId,
+        status: "interested",
+        toUserId: loggedInUser._id,
+      });
+
+      if (!connectionRequest) {
+        return res
+          .status(404)
+          .json({ message: `Connection request does not exist` });
+      }
+      connectionRequest.status = status;
+      const data = await connectionRequest.save();
+      res.json({ message: `Request ${status} successfully!`, data });
     } catch (err) {
       res.status(400).send(`Error in sending request: ${err.message}`);
     }
