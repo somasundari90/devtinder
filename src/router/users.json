@@ -1,0 +1,146 @@
+[
+  {
+    "firstName": "Narayan",
+    "lastName": "Singh",
+    "emailId": "narayan@gmail.com",
+    "password": "Narayan@123",
+    "age": 45,
+    "skills": ["Reactjs", "Redux", "JavaScript"]
+  },
+  {
+    "firstName": "Priya",
+    "lastName": "Mehta",
+    "emailId": "priya.mehta@yahoo.com",
+    "password": "Priya@123",
+    "age": 29,
+    "skills": ["Java", "Spring Boot", "JavaScript"]
+  },
+  {
+    "firstName": "Amit",
+    "lastName": "Verma",
+    "emailId": "amitv@hotmail.com",
+    "password": "Amit@123",
+    "age": 34,
+    "skills": ["Python", "Flask", "JavaScript"]
+  },
+  {
+    "firstName": "Sneha",
+    "lastName": "Rao",
+    "emailId": "sneha.rao@gmail.com",
+    "password": "Sneha@123",
+    "age": 26,
+    "skills": ["HTML", "CSS", "Reactjs"]
+  },
+  {
+    "firstName": "Rajesh",
+    "lastName": "Kumar",
+    "emailId": "rajesh.kumar@rediffmail.com",
+    "password": "Rajesh@123",
+    "age": 38,
+    "skills": ["AWS", "Docker", "Python"]
+  },
+  {
+    "firstName": "Anjali",
+    "lastName": "Sharma",
+    "emailId": "anjali.sharma@gmail.com",
+    "password": "Anjali@123",
+    "age": 31,
+    "skills": ["SQL", "Excel", "Power BI"]
+  },
+  {
+    "firstName": "Rohit",
+    "lastName": "Deshmukh",
+    "emailId": "rohit.deshmukh@gmail.com",
+    "password": "Rohit@123",
+    "age": 41,
+    "skills": ["Nodejs", "MongoDB", "JavaScript"]
+  },
+  {
+    "firstName": "Meena",
+    "lastName": "Nair",
+    "emailId": "meena.nair@yahoo.com",
+    "password": "Meena@123",
+    "age": 36,
+    "skills": ["Kubernetes", "Docker", "AWS"]
+  },
+  {
+    "firstName": "Karan",
+    "lastName": "Patel",
+    "emailId": "karan.patel@gmail.com",
+    "password": "Karan@123",
+    "age": 30,
+    "skills": ["Angular", "TypeScript", "HTML"]
+  },
+  {
+    "firstName": "Divya",
+    "lastName": "Menon",
+    "emailId": "divya.menon@gmail.com",
+    "password": "Divya@123",
+    "age": 27,
+    "skills": ["Python", "Pandas", "SQL"]
+  },
+  {
+    "firstName": "Vikas",
+    "lastName": "Gupta",
+    "emailId": "vikas.gupta@yahoo.com",
+    "password": "Vikas@123",
+    "age": 33,
+    "skills": ["Java", "Spring Boot", "Hibernate"]
+  },
+  {
+    "firstName": "Isha",
+    "lastName": "Chatterjee",
+    "emailId": "isha.chatterjee@gmail.com",
+    "password": "Isha@123",
+    "age": 28,
+    "skills": ["Reactjs", "TypeScript", "CSS"]
+  },
+  {
+    "firstName": "Manoj",
+    "lastName": "Joshi",
+    "emailId": "manoj.joshi@hotmail.com",
+    "password": "Manoj@123",
+    "age": 39,
+    "skills": ["Nodejs", "Expressjs", "MongoDB"]
+  },
+  {
+    "firstName": "Neha",
+    "lastName": "Reddy",
+    "emailId": "neha.reddy@gmail.com",
+    "password": "Neha@123",
+    "age": 32,
+    "skills": ["Power BI", "Excel", "Tableau"]
+  },
+  {
+    "firstName": "Siddharth",
+    "lastName": "Kapoor",
+    "emailId": "siddharth.kapoor@yahoo.com",
+    "password": "Siddharth@123",
+    "age": 37,
+    "skills": ["AWS", "Terraform", "Jenkins"]
+  },
+  {
+    "firstName": "Lakshmi",
+    "lastName": "Iyer",
+    "emailId": "lakshmi.iyer@gmail.com",
+    "password": "Lakshmi@123",
+    "age": 29,
+    "skills": ["Flask", "Python", "SQL"]
+  },
+  {
+    "firstName": "Arjun",
+    "lastName": "Bose",
+    "emailId": "arjun.bose@gmail.com",
+    "password": "Arjun@123",
+    "age": 35,
+    "skills": ["Reactjs", "Nodejs", "GraphQL"]
+  },
+  {
+    "firstName": "Tanya",
+    "lastName": "Mishra",
+    "emailId": "tanya.mishra@gmail.com",
+    "password": "Tanya@123",
+    "age": 24,
+    "skills": ["HTML", "CSS", "Bootstrap"]
+  }
+]
